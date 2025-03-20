@@ -3,8 +3,7 @@ Arvehaldussüsteem on veebipõhine lahendus, mis on loodud **Django ja Bootstrap
 
 https://github.com/arvutionu2015m/arvehaldussusteem/blob/main/Kuvat%C3%B5mmis%202025-03-20%20071815.png
 
-([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/arvutionu2015m/arvehaldussusteem/blob/main/Kuvat%C3%B5mmis%202025-03-20%20071815.png))
----
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
 
 #### **2. Peamised Funktsioonid**  
 ✅ **Kasutaja autentimine** – sisse- ja väljalogimine, registreerimine.  
