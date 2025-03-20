@@ -1,6 +1,9 @@
 #### **1. Ülevaade**  
 Arvehaldussüsteem on veebipõhine lahendus, mis on loodud **Django ja Bootstrap 4** abil, et pakkuda **kasutajasõbralikku, efektiivset ja automatiseeritud arveldamise lahendust**. See võimaldab **arvete loomist, haldamist, saatmist ja maksmist**, kasutades **Stripe'i makselahendust**. Süsteem toetab **PDF-arvete genereerimist, e-posti teel saatmist ja staatuse jälgimist**. Lisaks pakub see kasutajatele turvalist **autentimist ja autoriseerimist** Django **User Authentication System** abil.
 
+https://github.com/arvutionu2015m/arvehaldussusteem/blob/main/Kuvat%C3%B5mmis%202025-03-20%20071815.png
+
+([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/arvutionu2015m/arvehaldussusteem/blob/main/Kuvat%C3%B5mmis%202025-03-20%20071815.png))
 ---
 
 #### **2. Peamised Funktsioonid**  
