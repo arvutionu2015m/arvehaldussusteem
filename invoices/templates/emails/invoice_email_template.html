@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teie arve {{ invoice.invoice_number }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .invoice-info {
+            margin-bottom: 20px;
+        }
+
+        .invoice-info p {
+            margin: 5px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="https://yourcompany.com/logo.png" alt="Ettevõtte Logo"
+            style="max-width: 150px; display: block; margin: 0 auto 20px;">
+
+        <h2>Teie arve #{{ invoice.invoice_number }}</h2>
+        <p>Lugupeetud {{ invoice.client_name }},</p>
+        <p>Palun leiate allpool oma arve andmed:</p>
+
+        <div class="invoice-info">
+            <p><strong>Arve number:</strong> {{ invoice.invoice_number }}</p>
+            <p><b>Kogusumma:</b> {{ invoice.total_amount }} {{ invoice.currency }}</p>
+            <p><b>Maksetähtaeg:</b> {{ invoice.due_date|default:"Pole määratud" }}</p>
+            <p><strong>Staatus:</strong>
+                {% if invoice.status == "paid" %}
+                <span style="color: green;">Makstud</span>
+                {% elif invoice.status == "pending" %}
+                <span style="color: orange;">Ootel</span>
+                {% else %}
+                <span style="color: red;">Ületähtaegne</span>
+                {% endif %}
+                <!-- QR-kood ja maksenupp -->
+            <p><b>Maksa kiiresti:</b></p>
+            <img src="https://localhost/static/qrcodes/invoice_{{ invoice.invoice_number }}.png"
+                alt="Maksa QR-koodiga" width="150">
+            <br>
+            <a href="https://localhost/pay/{{ invoice.invoice_number }}/" class="btn">Maksa kohe Stripe kaudu</a>
+            </p>
+        </div>
+
+        <p>Kui Teil on küsimusi, võtke meiega ühendust.</p>
+
+        <a href="https://localhost/invoices/{{ invoice.id }}/" class="btn">Vaata arvet</a>
+
+        <div class="footer">
+            <p>Parimate soovidega,<br><strong>Arvutionu</strong></p>
+            <p>Kontakt: info@arvutionu.ee | Telefon: +372 53 359 094</p>
+        </div>
+    </div>
+</body>
+
+</html>

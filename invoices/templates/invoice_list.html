@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Kõik Arved{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Kõik arved</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Arve number</th>
+                <th>Klient</th>
+                <th>Summa</th>
+                <th>Staatus</th>
+                <th>Tegevused</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ invoice.invoice_number }}</td>
+                <td>{{ invoice.client_name }}</td>
+                <td>{{ invoice.total_amount }} {{ invoice.currency }}</td>
+                <td>
+                    {% if invoice.status == "paid" %}
+                        <span class="badge badge-success">Makstud</span>
+                    {% elif invoice.status == "pending" %}
+                        <span class="badge badge-warning">Ootel</span>
+                    {% else %}
+                        <span class="badge badge-danger">Ületähtaegne</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'invoice_detail' invoice.id %}" class="btn btn-info btn-sm">Vaata</a>
+                    <a href="{% url 'send_invoice' invoice.id %}" class="btn btn-primary btn-sm">Saada</a>
+                    <a href="{% url 'delete_invoice' invoice.id %}" class="btn btn-danger btn-sm">Kustuta</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">Ühtegi arvet pole lisatud.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

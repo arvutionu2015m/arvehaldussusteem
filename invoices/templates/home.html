@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Avaleht | Arvehaldussüsteem{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- ✅ TERVITUSSEKTSIOON -->
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Tere tulemast Arvehaldussüsteemi!</h1>
+        <p class="lead">Hallake oma arveid kiiresti ja lihtsalt.</p>
+        <a href="{% url 'create_invoice' %}" class="btn btn-success btn-lg">Loo uus arve</a>
+    </div>
+
+    <!-- ✅ TEATED (Bootstrap Alerts) -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- ✅ ARVETE TABEL -->
+    <h2 class="text-center">Kõik Arved</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Arve number</th>
+                    <th>Klient</th>
+                    <th>Summa</th>
+                    <th>Maksumäär</th>
+                    <th>Kogusumma</th>
+                    <th>Staatus</th>
+                    <th>Viimati saadetud</th>
+                    <th>Tegevused</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ invoice.invoice_number }}</td>
+                    <td>{{ invoice.client_name }}</td>
+                    <td>{{ invoice.amount }} {{ invoice.currency }}</td>
+                    <td>{{ invoice.tax_rate }}%</td>
+                    <td>{{ invoice.total_amount }} {{ invoice.currency }}</td>
+                    <td>
+                        {% if invoice.status == "paid" %}
+                            <span class="badge badge-success">Makstud</span>
+                        {% elif invoice.status == "pending" %}
+                            <span class="badge badge-warning">Ootel</span>
+                        {% elif invoice.status == "overdue" %}
+                            <span class="badge badge-danger">Ületähtaegne</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ invoice.sent_at|default:"Pole saadetud" }}</td>
+                    <td>
+                        <a href="{% url 'invoice_detail' invoice.id %}" class="btn btn-info btn-sm">Vaata</a>
+                        <a href="{% url 'send_invoice' invoice.id %}" class="btn btn-primary btn-sm">Saada</a>
+                        <a href="{% url 'download_invoice' invoice.id %}" class="btn btn-secondary btn-sm">Laadi PDF alla</a>
+                        <a href="{% url 'delete_invoice' invoice.id %}" class="btn btn-danger btn-sm">Kustuta</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">Ühtegi arvet pole veel lisatud.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Arve saadetud{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h2>Arve edukalt saadetud!</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="text-primary">Arve number: <strong>{{ invoice.invoice_number }}</strong></h4>
+            <p><strong>Saadetud kliendile:</strong> {{ invoice.client_name }}</p>
+            <p><strong>E-posti aadress:</strong> {{ invoice.client_email }}</p>
+            <p><strong>Summa:</strong> {{ invoice.total_amount }} {{ invoice.currency }}</p>
+            
+            <a href="{% url 'home' %}" class="btn btn-primary mt-3">Tagasi avalehele</a>
+            <a href="{% url 'invoice_detail' invoice.id %}" class="btn btn-secondary mt-3">Vaata arvet</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

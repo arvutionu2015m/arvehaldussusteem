@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Arve #{{ invoice.invoice_number }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h2>Arve #{{ invoice.invoice_number }}</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Klient: {{ invoice.client_name }}</h4>
+            <p class="card-text"><strong>E-post:</strong> {{ invoice.client_email }}</p>
+            <p class="card-text"><strong>Summa:</strong> {{ invoice.amount }} {{ invoice.currency }}</p>
+            <p class="card-text"><strong>Maksutüüp:</strong> {{ invoice.get_tax_type_display }}</p>
+            <p class="card-text"><strong>Maksumäär:</strong> {{ invoice.tax_rate }}%</p>
+            <h5><strong>Kogusumma:</strong> {{ invoice.total_amount }} {{ invoice.currency }}</h5>
+            
+            <p><strong>Staatus:</strong> 
+                {% if invoice.paid %}
+                    <span class="badge badge-success">Makstud</span>
+                {% else %}
+                    <span class="badge badge-warning">Ootel</span>
+                {% endif %}
+            </p>
+
+            <div class="mt-4">
+                <a href="{% url 'send_invoice' invoice.id %}" class="btn btn-primary">Saada e-postiga</a>
+                <a href="{% url 'download_invoice' invoice.id %}" class="btn btn-secondary">Laadi PDF alla</a>
+                <a href="{% url 'delete_invoice' invoice.id %}" class="btn btn-danger">Kustuta</a>
+                <a href="{% url 'home' %}" class="btn btn-light">Tagasi</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
